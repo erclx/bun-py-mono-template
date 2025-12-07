@@ -1,4 +1,4 @@
-# bun-py-mono
+# Bun-Py Monorepo
 
 A modern monorepo template combining **React (Bun)** and **Python (uv)**.
 
@@ -6,53 +6,54 @@ A modern monorepo template combining **React (Bun)** and **Python (uv)**.
 
 - **Frontend:** React 19, Vite, TypeScript, TailwindCSS (managed by `bun`)
 - **Backend:** Python 3.14+, FastAPI (managed by `uv`)
-- **Quality:** Pre-commit, Ruff, ESLint, Gitleaks
 
-## Quick Start
+## Prerequisites
 
-### 1. Prerequisites
+Ensure you have the following installed:
+- [Bun](https://bun.sh)
+- [uv](https://docs.astral.sh/uv/)
 
-Ensure you have [Bun](https://bun.sh) and [uv](https://docs.astral.sh/uv/) installed.
+## Setup
 
-### 2. Setup
+Initialize dependencies for both applications.
 
-Initialize dependencies and git hooks:
+### 1. Frontend
 
 ```bash
-# 1. Setup Git Hooks (Root)
-uv tool install pre-commit --force
-pre-commit install
-
-# 2. Setup Frontend
 cd apps/frontend
 bun install
+```
 
-# 3. Setup Backend
-cd ../backend
+### 2. Backend
+
+```bash
+cd apps/backend
 uv sync
 ```
 
-### 3. Run Development
+## Run Development
 
-Open two terminal tabs:
+You need to run the frontend and backend in separate terminals.
 
-**Frontend (UI):**
+### Frontend
 
 ```bash
 cd apps/frontend
 bun run dev
-# Running at http://localhost:5173
 ```
 
-**Backend (API):**
+Runs on port 5173.
+
+### Backend
 
 ```bash
 cd apps/backend
-uv run uvicorn src.app.main:app --reload
-# Running at http://127.0.0.1:8000
+just dev
 ```
 
-## 📂 Structure
+Runs on port 8000.
+
+## Structure
 
 ```text
 bun-py-mono/
@@ -60,13 +61,5 @@ bun-py-mono/
 │   ├── frontend/   # React Application (Vite + Bun)
 │   └── backend/    # Python Application (FastAPI + uv)
 ├── .vscode/        # Unified VS Code settings
-└── .pre-commit...  # Unified Git Hooks config
+└── package.json    # Root scripts
 ```
-
-## 🤝 Contribution
-
-This repo uses **pre-commit** to enforce code quality.
-
-* **Python:** Linted/Formatted by `ruff`.
-* **JS/TS:** Linted by `eslint`.
-* **Commits:** Must follow conventional format (e.g., `feat: add login`).
