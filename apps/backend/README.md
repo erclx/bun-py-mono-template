@@ -1,7 +1,6 @@
-# UV Python Template
+# Bun Py Backend
 
-A web-first starter template for Python projects. Pre-configured with `uv`, FastAPI, Ruff, and modern tooling.
-Clone it and start building.
+The FastAPI backend service for the `bun-py-mono` monorepo. Pre-configured with `uv`, Ruff, and modern tooling.
 
 ## Disclaimer
 
@@ -10,51 +9,66 @@ This is opinionated. Use what works for you, ignore the rest, and stay consisten
 ## What's Included
 
 ### Core Stack
-
 - **Python 3.14+**
 - **uv** for blazing fast package management
 - **FastAPI** for the web framework
 
 ### Testing
-
 - **pytest** for unit and integration tests
 - **pytest-cov** for coverage reporting
 
 ### Code Quality
-
 - **Ruff**: Replaces Flake8, Black, and Isort for linting and formatting
 - **MyPy**: Strict static type checking
 - **Gitleaks**: Scans for secrets before committing
 
 ### Dev Experience
-
 - **Just**: Command runner for common tasks
-- **Pre-commit**: Automates checks on git commit
-- **VS Code**: Pre-configured settings and extensions
+- **Pre-commit**: Automates checks on git commit (linting and commit messages)
 
 ## Quick Start
 
 ```bash
-git clone <your-repo-url> my-project
-cd my-project
 uv sync
-uv run pre-commit install
+just setup
 ```
+
+The `just setup` command will install dependencies and configure the git hooks.
 
 ## Scripts
 
 We use `just` to run commands.
 
 ```bash
-just dev            # Start development server (hot reload)
-just test           # Run tests with verbose output
-just lint           # Lint code with Ruff and MyPy
-just format         # Format code
-just clean          # Remove cache and artifacts
-just preview        # Build and run Docker image for local testing
+just dev        # Start dev server with hot reload
+just fix        # Format & fix with Ruff
+just lint       # Check style (Ruff) + types (MyPy)
+just test       # Run tests
+just test-cov   # Run tests with coverage report
+just clean      # Remove cache & build files
+just setup      # Sync deps & install hooks
 ```
 
-*Note: If you don't use `just`, you can use `uv run <command>` directly.*
+## Git Hooks & Pre-commit
+
+We use `pre-commit` to enforce code quality and `commit-msg` hooks to enforce conventional commits.
+
+### Manual Setup / Useful Commands:
+
+```bash
+# Manually run checks on the entire repo
+pre-commit run --all-files
+
+# Update the pre-commit tool itself
+uv tool upgrade pre-commit
+
+# Update the versions in .pre-commit-config.yaml
+pre-commit autoupdate
+```
+
+### Hook Types:
+* `pre-commit`: Runs on file changes (linting/formatting).
+* `commit-msg`: Runs on the commit message itself.
 
 ## Project Conventions
 
@@ -62,19 +76,19 @@ just preview        # Build and run Docker image for local testing
 
 We use `uv` exclusively. Do not use `pip` manually.
 
-- **Add lib:** `uv add <package>`
-- **Add dev lib:** `uv add --dev <package>`
-- **Sync:** `uv sync`
+* Add lib: `uv add <package>`
+* Add dev lib: `uv add --dev <package>`
+* Sync: `uv sync`
 
 ### File Structure
 
-- `app/`: Application source code
-- `tests/`: Test files (mirrors app structure)
+* `src/app/`: Application source code
+* `tests/`: Test files (mirrors app structure)
 
 ### Commit Convention
 
-Uses [Conventional Commits](https://www.conventionalcommits.org/).
+Uses Conventional Commits.
 
-- `feat: add health check endpoint`
-- `fix: resolve typing error in main`
-- `chore: update uv lockfile`
+* `feat: add health check endpoint`
+* `fix: resolve typing error in main`
+* `chore: update uv lockfile`
