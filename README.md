@@ -1,4 +1,4 @@
-# Bun-Py Monorepo
+# Bun-Py Monorepo Template
 
 A modern monorepo template combining **React (Bun)** and **Python (uv)**.
 
